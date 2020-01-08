@@ -4,14 +4,14 @@
 #
 Name     : perl-Cairo
 Version  : 1.107
-Release  : 2
+Release  : 3
 URL      : https://cpan.metacpan.org/authors/id/X/XA/XAOC/Cairo-1.107.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/X/XA/XAOC/Cairo-1.107.tar.gz
 Summary  : 'Perl interface to the cairo 2d vector graphics library'
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: perl-Cairo-lib = %{version}-%{release}
 Requires: perl-Cairo-license = %{version}-%{release}
+Requires: perl-Cairo-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 BuildRequires : perl(ExtUtils::Depends)
 BuildRequires : perl(ExtUtils::PkgConfig)
@@ -25,22 +25,11 @@ Perl bindings to the cairo graphics library (http://www.cairographics.org).
 %package dev
 Summary: dev components for the perl-Cairo package.
 Group: Development
-Requires: perl-Cairo-lib = %{version}-%{release}
 Provides: perl-Cairo-devel = %{version}-%{release}
-Requires: perl-Cairo = %{version}-%{release}
 Requires: perl-Cairo = %{version}-%{release}
 
 %description dev
 dev components for the perl-Cairo package.
-
-
-%package lib
-Summary: lib components for the perl-Cairo package.
-Group: Libraries
-Requires: perl-Cairo-license = %{version}-%{release}
-
-%description lib
-lib components for the perl-Cairo package.
 
 
 %package license
@@ -51,8 +40,18 @@ Group: Default
 license components for the perl-Cairo package.
 
 
+%package perl
+Summary: perl components for the perl-Cairo package.
+Group: Default
+Requires: perl-Cairo = %{version}-%{release}
+
+%description perl
+perl components for the perl-Cairo package.
+
+
 %prep
 %setup -q -n Cairo-1.107
+cd %{_builddir}/Cairo-1.107
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -77,7 +76,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Cairo
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Cairo/LICENSE
+cp %{_builddir}/Cairo-1.107/LICENSE %{buildroot}/usr/share/package-licenses/perl-Cairo/7b22ddaeae3dbf094f36bfd2b4ad23618573f60f
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -90,22 +89,22 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Cairo.pm
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Cairo/Install/Files.pm
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Cairo/Install/cairo-perl-auto.h
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Cairo/Install/cairo-perl-auto.typemap
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Cairo/Install/cairo-perl.h
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Cairo/Install/cairo-perl.typemap
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Cairo/Install/doctypes
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Cairo.3
 
-%files lib
-%defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/Cairo/Cairo.so
-
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Cairo/LICENSE
+/usr/share/package-licenses/perl-Cairo/7b22ddaeae3dbf094f36bfd2b4ad23618573f60f
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Cairo.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Cairo/Install/Files.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Cairo/Install/cairo-perl-auto.h
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Cairo/Install/cairo-perl-auto.typemap
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Cairo/Install/cairo-perl.h
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Cairo/Install/cairo-perl.typemap
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Cairo/Install/doctypes
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Cairo/Cairo.so
