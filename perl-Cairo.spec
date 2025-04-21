@@ -7,7 +7,7 @@
 #
 Name     : perl-Cairo
 Version  : 1.109
-Release  : 23
+Release  : 24
 URL      : https://cpan.metacpan.org/authors/id/X/XA/XAOC/Cairo-1.109.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/X/XA/XAOC/Cairo-1.109.tar.gz
 Summary  : 'Perl interface to the cairo 2d vector graphics library'
